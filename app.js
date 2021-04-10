@@ -1,6 +1,6 @@
 const express = require("express");
 const bodyParser = require("body-parser");
-const moongoose = require("mongoose");
+const mongoose = require("mongoose");
 
 const feedRoutes = require("./routes/feed");
 const app = express();
@@ -18,10 +18,10 @@ app.use((req, res, next) => {
 
 app.use("/feed", feedRoutes);
 
-moongoose.mongo
-	.connect(
-		"mongodb+srv://chakshu:chakshu@cluster0.fjlpu.mongodb.net/messages?authSource=admin&replicaSet=atlas-1ocqy4-shard-0&readPreference=primary&appname=MongoDB%20Compass&ssl=true"
-	)
+mongoose.connect(
+	"mongodb+srv://chakshu:chakshu@cluster0.pfrj6.mongodb.net/myFirstDatabase?retryWrites=true&w=majority",
+	{ useUnifiedTopology: true, useNewUrlParser: true }
+)
 	.then((result) => {
 		app.listen(8080);
 	})
