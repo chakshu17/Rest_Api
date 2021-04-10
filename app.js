@@ -1,5 +1,6 @@
 const express = require("express");
 const bodyParser = require("body-parser");
+const moongoose = require("mongoose");
 
 const feedRoutes = require("./routes/feed");
 const app = express();
@@ -17,4 +18,11 @@ app.use((req, res, next) => {
 
 app.use("/feed", feedRoutes);
 
-app.listen(8080);
+moongoose.mongo
+	.connect(
+		"mongodb+srv://chakshu:chakshu@cluster0.fjlpu.mongodb.net/messages?authSource=admin&replicaSet=atlas-1ocqy4-shard-0&readPreference=primary&appname=MongoDB%20Compass&ssl=true"
+	)
+	.then((result) => {
+		app.listen(8080);
+	})
+	.catch((err) => console.log(err));
