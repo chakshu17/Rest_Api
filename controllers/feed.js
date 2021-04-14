@@ -29,12 +29,18 @@ exports.createPost = (req, res, next) => {
 		// 	error: errors.array(),
 		// });
 	}
+	if (!req.file) {
+		const error = new Error("No Image Provided.");
+		const statusCode = 422;
+		throw error;
+	}
+	const imageUrl = req.file.path.replace("\\" ,"/");
 	const title = req.body.title;
 	const content = req.body.content;
 	const post = new Post({
 		title: title,
 		content: content,
-		imageUrl: "images/nike.jpg",
+		imageUrl: imageUrl,
 		creator: { name: "Kratos" },
 	});
 
