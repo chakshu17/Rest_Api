@@ -40,7 +40,7 @@ const filefilter = (req, file, cb) => {
 };
 
 // app.use(bodyParser.urlencoded()) // x-www-form-urlencoded <form>
-app.use(bodyParser.json()); // application/json
+app.use(express.json()); // application/json
 app.use(multer({ storage: storage, fileFilter: filefilter }).single("image"));
 app.use("/images", express.static(path.join(__dirname, "images")));
 
