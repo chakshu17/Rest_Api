@@ -63,11 +63,18 @@ app.use((error, req, res, next) => {
 	res.status(status).json({ message: message, data: data });
 });
 
-mongoose.connect(
-	"mongodb+srv://chakshu:chakshu@cluster0.pfrj6.mongodb.net/myFirstDatabase?retryWrites=true&w=majority",
-	{ useUnifiedTopology: true, useNewUrlParser: true }
-)
+mongoose
+	.connect(
+		"mongodb+srv://chakshu:chakshu@cluster0.pfrj6.mongodb.net/myFirstDatabase?retryWrites=true&w=majority",
+		{ useUnifiedTopology: true, useNewUrlParser: true }
+	)
 	.then((result) => {
-		app.listen(8080);
+		const server = app.listen(8080);
+		const io = require("socket.io")(server);
+
+
+		io.on("connection", (socket) => {
+			console.log("CLient Connected");
+		});
 	})
 	.catch((err) => console.log(err));
